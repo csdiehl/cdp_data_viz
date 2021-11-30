@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <h1>Connected Data Platform Trip Requests</h1>
+	<h2>Trip requests over time</h2>
+	<p>The chart below shows 1 million sample requests over 10 days. The bimodal distribution of requests 
+	during the morning and evening commute is apparent. The grey line represents the average for selected data. </p>
+  <div id="vis"></div>
+  
+  <h2>Transit and transfer time</h2>
+  <p>As the number of transfers increases, travelers experience longer journeys and longer wait times. </p>
+  <img src = "transit and transfer time.png">
+  
+  <h2>Itineraries and journey legs</h2>
+  <h3>Total time, transit time, and waiting time for returned itineraries</h3>
+  <p>Drag across any chart to filter the data.</p>
+  <div id = "vis2"></div>
+  
+  <h3>Number of journey legs in each itinerary</h3>
+  <img src = "number of trip legs CDP.png">
+  
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "bar", "encoding": {"color": {"condition": {"value": "steelblue", "selection": "selector001"}, "value": "gray"}, "x": {"type": "temporal", "field": "datetime"}, "y": {"type": "quantitative", "field": "size"}}, "height": 300, "selection": {"selector001": {"type": "interval", "encodings": ["x"]}}, "width": 1000}, {"mark": {"type": "rule", "color": "darkgrey"}, "encoding": {"size": {"value": 3}, "y": {"type": "quantitative", "aggregate": "mean", "field": "size"}}, "transform": [{"filter": {"selection": "selector001"}}]}], "data": {"url": "altair-data-8971e1ac2925ebc9d5a013163c580e35.json", "format": {"type": "json"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+  
+  
+    <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["duration", "transit_time", "walk_time"]}, "spec": {"layer": [{"mark": "bar", "encoding": {"color": {"value": "#ddd"}, "x": {"type": "quantitative", "bin": {"extent": [0, 200], "step": 10}, "field": {"repeat": "column"}}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 400, "selection": {"selector003": {"type": "interval", "encodings": ["x"]}}, "width": 300}, {"mark": "bar", "encoding": {"x": {"type": "quantitative", "bin": {"extent": [0, 200], "step": 10}, "field": {"repeat": "column"}}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 400, "transform": [{"filter": {"selection": "selector003"}}], "width": 300}], "data": {"url": "altair-data-e3cf7f853747c723d32b7380c3bb9658.json", "format": {"type": "json"}}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis2", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+  
+  
+</body>
+</html>
