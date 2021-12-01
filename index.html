@@ -27,6 +27,10 @@ body {
   <h2>Transit and transfer time</h2>
   <p>As the number of transfers increases, travelers experience longer journeys and longer wait times. </p>
   <img src = "transit and transfer time.png">
+	
+<h2>Travel times for trips under 3 hours</h3>
+<p>The chart below shows differences in travel times between itineraries using bus, subway, or both transit modes combined.</p>
+<div id = "vis3"></div>
   
   <h2>Itineraries and journey legs</h2>
   <h3>Total time, transit time, and waiting time for returned itineraries</h3>
@@ -74,9 +78,27 @@ body {
       vegaEmbed("#vis2", spec, embedOpt)
         .catch(error => showError(el, error));
     })(vegaEmbed);
-
   </script>
   
+<script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "vconcat": [{"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "transit"}, "x": {"type": "quantitative", "bin": {"extent": [0, 180], "step": 10}, "field": "duration"}, "y": {"type": "quantitative", "aggregate": "count"}}, "height": 300, "selection": {"selector008": {"type": "interval", "encodings": ["x"]}}, "title": "Travel times for trips under 3 hours", "width": 700}, {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "transit"}, "x": {"type": "quantitative", "aggregate": "count", "field": "transit"}, "y": {"type": "nominal", "field": "transit"}}, "transform": [{"filter": {"selection": "selector008"}}], "width": 700}], "data": {"url": "altair-data-17dc6f054742dd4d42b1176c08461a38.json", "format": {"type": "json"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis3", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
   
 </body>
 </html>
