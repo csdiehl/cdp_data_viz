@@ -18,7 +18,12 @@ body {
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
 </head>
 <body>
-  <h1>Connected Data Platform Trip Requests</h1>
+  <h1>Connected Data Platform Sample Analysis</h1>
+	<h2>Working with the CDP Data</h2>
+	<p>A user’s search is stored in a <code>TripRequest object.</code> This includes Origin and Destination, (<code>TripRequest.fromPlace</code> and <code>TripRequest.toPlace</code>), date, modes selected.</p>
+	<p><code>TripRequest.itineraries</code> is an array of returned trip plans based on the user’s query.</p>
+	<p><code>TripRequest.itineraries.legs</code> is an array containing the individual segments of a single itinerary. </p>
+
 	<h2>Trip requests over time</h2>
 	<p>The chart below shows 1 million sample requests over 10 days. The bimodal distribution of requests 
 	during the morning and evening commute is apparent. The grey line represents the average for selected data. </p>
